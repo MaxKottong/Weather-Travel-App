@@ -15,7 +15,7 @@ var getForecast = function (location) {
                 response.json().then(function (data) {
 
                     if (data.errorCode === 999) {
-                        //modal error
+                        triggerModal("This is not a known location, please try again");
                         return false;
                     }
 
@@ -30,7 +30,7 @@ var getForecast = function (location) {
                     addRecentSearch();
                 })
             } else {
-                //modal error
+                triggerModal("The network is currently unavailable, try again later");
             }
         })
 }
@@ -107,6 +107,17 @@ var getIcon = function (condition) {
     }
 }
 
+var triggerModal = function (message) {
+    $("#error-modal").modal("show");
+    $(".modal-body").text(message);
+}
+
+$("#error-modal").on("click", function (event) {
+    if ($(event.target).attr("class").includes("btn")) {
+        $("#error-modal").modal("hide");
+    }
+})
+
 var addRecentSearch = function () {
     var temp = city.split(",");
     city = temp[0].trim() + "-" + temp[1].trim();
@@ -142,6 +153,7 @@ var addRecentSearch = function () {
 }
 
 var navEl = $("nav").on("click", function (event) {
+    event.preventDefault();
     var targetEl = $(event.target);
 
     if (targetEl.attr("id") === "search") {
@@ -150,7 +162,7 @@ var navEl = $("nav").on("click", function (event) {
             getForecast(location);
         }
         else {
-            //modal error
+            triggerModal("You need to select a City to search!");
         }
         $("#city").val("");
 
