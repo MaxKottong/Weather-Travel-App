@@ -68,7 +68,7 @@ var setForecast = function () {
             .attr("id", i + "-day");
 
         var date = $("<p>")
-            .text(dayJs().add(i, 'days').format(dateFormat))
+            .text(dayjs().add(i, 'days').format(dateFormat))
             .addClass("h5");
         dayEl.append(date);
 
@@ -90,7 +90,7 @@ var setForecast = function () {
             .text("Humidity: " + forecast[i].humidity + "%");
         dayEl.append(humidity);
 
-        container.append(dayEl);
+        forecastsEl.append(dayEl);
     }
 }
 
