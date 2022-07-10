@@ -126,10 +126,9 @@ var addRecentSearch = function () {
     console.log(cityLower)
     console.log($("#" + cityLower).attr("id"))
 
-    //create an array of recent searches
     var children = [$("#recent-search").children()][0];
 
-    if (cityLower === $("#" + cityLower).attr("id")) { //against hard coded quick search
+    if (cityLower === $("#" + cityLower).attr("id")) {
         return console.log("This element already exists");
     }
 
@@ -144,8 +143,8 @@ var addRecentSearch = function () {
     }
 
 
-    var recent = $("<div>")
-        .addClass("d-block btn custom-btn text-center bg-light mt-2")
+    var recent = $("<button>")
+        .addClass("special-btn d-block btn text-center bg-secondary mt-2 w-100")
         .attr("id", cityLower)
         .text(city.replace("-", ","));
 
