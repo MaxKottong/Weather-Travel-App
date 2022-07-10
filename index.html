@@ -9,6 +9,65 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
 <body>
+    <header class="h2 bg-info text-center min-vw-95 min-vh-10">Weather Dashboard</header>
+
+    <main class="container p-1">
+        <div class="">
+            <nav class="">
+                <form class="">
+                    <input type="text" name="city" autofocus="true" class="form-control rounded" id="city" placeholder="Enter City Name" />
+                    <button class="d-block btn btn-primary text-center bg-info mt-2 w-100">Search</button>
+                </form>
+
+                <div id="quick-search">
+                    <div id="premade-quick">
+                        <button id="austin-tx" class="d-block btn text-center bg-secondary mt-2 w-100">Austin</button>
+                        <button id="chicago-il" class="d-block btn text-center bg-secondary mt-2 w-100">Chicago</button>
+                        <button id="ny-ny" class="d-block btn text-center bg-secondary mt-2 w-100">New York</button>
+                    </div>
+                    <div id="recent-search">
+
+                    </div>
+                </div>
+            </nav>
+            <div class="">
+                <div class="">
+                    <h4 id="todays-header">
+                        <span id="city-searched"></span>
+                        <span id="todays-date"></span>
+                        <img id="weather-icon" src="" />
+                    </h4>
+                    <div class="temp">Temp: <span id="todays-temp"></span></div>
+                    <div class="wind">Wind: <span id="todays-wind"></span></div>
+                    <div class="humidity">Humidity: <span id="todays-humidity"></span></div>
+                    <div class="uv">UV Index: <span id="todays-uv"></span></div>
+                </div>
+                <div class="" id="5-day-forecast">
+                    <h4 id="forecast-header">5-day Forecast:</h4>
+                    <div class="" id="forecasts">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal fade" id="error-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Warning!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>
