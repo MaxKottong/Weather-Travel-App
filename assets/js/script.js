@@ -1,5 +1,5 @@
 var apiKey = "KTGJCNE6ME6PS52XDXURA4MKV";
-var city = "Chapel%20Hill";
+var city = "";
 
 var currentWeather = [];
 var forecast = [];
@@ -8,7 +8,7 @@ var dateFormat = "MM/DD/YY";
 var getForecast = function (location) {
     city = location;
 
-    var apiUrl = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?locations=" + city +"&aggregateHours=24&forecastDays=6&contentType=json&iconSet=icons2&shortColumnNames=true&key=" + apiKey;
+    var apiUrl = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?locations=" + city + "&aggregateHours=24&forecastDays=6&contentType=json&iconSet=icons2&shortColumnNames=true&key=" + apiKey;
 
     console.log(apiUrl);
 
@@ -22,7 +22,6 @@ var getForecast = function (location) {
                     }
 
                     currentWeather = data.locations;
-                    console.log(currentWeather);
 
                     city = currentWeather[Object.keys(currentWeather)[0]].address;
                     forecast = currentWeather[Object.keys(currentWeather)[0]].values;
@@ -92,5 +91,39 @@ var setForecast = function () {
         dayEl.append(humidity);
 
         container.append(dayEl);
+    }
+}
+
+var navEl = $("nav").on("click", function (event) {
+    var targetEl = $(event.target);
+
+    if (targetEl.attr("id") === "search") {
+        var location = $("#city").val();
+        if (location) {
+            getForeCast(location);
+        }
+        else {
+            //modal error
+        }
+        $("#city").val("");
+
+    } else if (targetEl.attr("class").includes("special-btn")) {
+        getForecast(targetEl.attr("id").replace("-", ","));
+    }
+
+});
+
+var getIcon = function (condition) {
+    switch (condition.toLowerCase()) {
+        case "rain":
+        case "rain, partially cloudy":
+        case "rain, overcast":
+            return "https://raw.githubusercontent.com/visualcrossing/WeatherIcons/main/PNG/2nd%20Set%20-%20Color/rain.png";
+        case "partially cloudy":
+            return "https://raw.githubusercontent.com/visualcrossing/WeatherIcons/main/PNG/2nd%20Set%20-%20Color/partly-cloudy-day.png";
+        case "overcast":
+            return "https://raw.githubusercontent.com/visualcrossing/WeatherIcons/main/PNG/2nd%20Set%20-%20Color/cloudy.png";
+        default:
+            return "https://raw.githubusercontent.com/visualcrossing/WeatherIcons/main/PNG/2nd%20Set%20-%20Color/clear-day.png";
     }
 }
