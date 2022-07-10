@@ -123,22 +123,15 @@ var addRecentSearch = function () {
     city = temp[0].trim() + "-" + temp[1].trim();
     var cityLower = city.toLowerCase().replace(" ", "_");
 
-    console.log(cityLower)
-    console.log($("#" + cityLower).attr("id"))
-
     var children = [$("#recent-search").children()][0];
 
     if (cityLower === $("#" + cityLower).attr("id")) {
-        return console.log("This element already exists");
+        return
     }
 
     for (var i = 0; i < children.length; i++) {
-        console.log("new element " + $(children[i]).attr("id"));
-        console.log($("#" + city).attr("id"));
-        console.log(city);
-
         if ($(children[i]).attr("id") === cityLower) {
-            return console.log("This element already exists");
+            return
         }
     }
 
