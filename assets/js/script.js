@@ -10,8 +10,6 @@ var getForecast = function (location) {
 
     var apiUrl = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/forecast?locations=" + city + "&aggregateHours=24&forecastDays=6&contentType=json&iconSet=icons2&shortColumnNames=true&key=" + apiKey;
 
-    console.log(apiUrl);
-
         fetch(apiUrl).then(function (response) {
             if (response.ok) {
                 response.json().then(function (data) {
@@ -39,14 +37,14 @@ var getForecast = function (location) {
 
 var todaysConditions = function () {
     var uv = parseInt(forecast[0].uvindex);
-    var uvEl = $("#todaysUv").text(uv);
+    var uvEl = $("#todays-uv").text(uv);
 
     $("#city-searched").text(city);
     $("#todays-date").text("(" + dayjs().format(dateFormat) + ")");
     $("#weather-icon").attr("src", getIcon(forecast[0].conditions))
     $("#todays-temp").text(currentWeather.temp + " \xB0F");
-    $("#todays-wind").text(currentWeather.wspd + "MPH");
-    $("todays-humidity").text(currentWeather.humidity + "%");
+    $("#todays-wind").text(currentWeather.wspd + " MPH");
+    $("#todays-humidity").text(currentWeather.humidity + "%");
 
     if (uv <= 2) {
         uvEl.addClass("bg-success px-2 shadow-sm rounded");
@@ -94,25 +92,6 @@ var setForecast = function () {
     }
 }
 
-var navEl = $("nav").on("click", function (event) {
-    var targetEl = $(event.target);
-
-    if (targetEl.attr("id") === "search") {
-        var location = $("#city").val();
-        if (location) {
-            getForeCast(location);
-        }
-        else {
-            //modal error
-        }
-        $("#city").val("");
-
-    } else if (targetEl.attr("class").includes("special-btn")) {
-        getForecast(targetEl.attr("id").replace("-", ","));
-    }
-
-});
-
 var getIcon = function (condition) {
     switch (condition.toLowerCase()) {
         case "rain":
@@ -127,3 +106,56 @@ var getIcon = function (condition) {
             return "https://raw.githubusercontent.com/visualcrossing/WeatherIcons/main/PNG/2nd%20Set%20-%20Color/clear-day.png";
     }
 }
+
+var addRecentSearch = function () {
+    var temp = city.split(",");
+    city = temp[0].trim() + "-" + temp[1].trim();
+    var cityLower = city.toLowerCase().replace(" ", "_");
+
+    console.log(cityLower)
+    console.log($("#" + cityLower).attr("id"))
+
+    //create an array of recent searches
+    var children = [$("#recent-search").children()][0];
+
+    if (cityLower === $("#" + cityLower).attr("id")) { //against hard coded quick search
+        return console.log("This element already exists");
+    }
+
+    for (var i = 0; i < children.length; i++) {
+        console.log("new element " + $(children[i]).attr("id"));
+        console.log($("#" + city).attr("id"));
+        console.log(city);
+
+        if ($(children[i]).attr("id") === cityLower) {
+            return console.log("This element already exists");
+        }
+    }
+
+
+    var recent = $("<div>")
+        .addClass("d-block btn custom-btn text-center bg-light mt-2")
+        .attr("id", cityLower)
+        .text(city.replace("-", ","));
+
+    $("#recent-search").append(recent);
+}
+
+var navEl = $("nav").on("click", function (event) {
+    var targetEl = $(event.target);
+
+    if (targetEl.attr("id") === "search") {
+        var location = $("#city").val();
+        if (location) {
+            getForecast(location);
+        }
+        else {
+            //modal error
+        }
+        $("#city").val("");
+
+    } else if (targetEl.attr("class").includes("special-btn")) {
+        getForecast(targetEl.attr("id").replace("-", ","));
+    }
+
+});
