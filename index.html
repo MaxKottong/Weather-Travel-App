@@ -12,10 +12,11 @@
     <header class="h2 bg-info text-center min-vw-95 min-vh-10">Weather Dashboard</header>
 
     <main class="container p-1">
-        <div class="">
-            <nav class="">
-                <form class="">
-                    <input type="text" name="city" autofocus="true" class="form-control rounded" id="city" placeholder="Enter City Name" />
+        <div class="row m-auto p-1">
+            <nav class="col-12 col-md-3">
+                <form class="pb-2 border-bottom border-secondary" id="search-form">
+                    <h4>Search for a City:</h4>
+                    <input type="text" name="city" autofocus class="form-control rounded" id="city" placeholder="Enter City Name" />
                     <button class="d-block btn btn-primary text-center bg-info mt-2 w-100">Search</button>
                 </form>
 
@@ -30,8 +31,8 @@
                     </div>
                 </div>
             </nav>
-            <div class="">
-                <div class="">
+            <div class="col-12 col-md-9 align-items-center">
+                <div class="row today p-2 mt-2 border border-secondary rounded d-block">
                     <h4 id="todays-header">
                         <span id="city-searched"></span>
                         <span id="todays-date"></span>
@@ -42,7 +43,7 @@
                     <div class="humidity">Humidity: <span id="todays-humidity"></span></div>
                     <div class="uv">UV Index: <span id="todays-uv"></span></div>
                 </div>
-                <div class="" id="5-day-forecast">
+                <div class="row forecast p-1 mt-1 d-block" id="5-day-forecast">
                     <h4 id="forecast-header">5-day Forecast:</h4>
                     <div class="" id="forecasts">
 
